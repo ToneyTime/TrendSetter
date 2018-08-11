@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sysauto_script" label="Scheduled Script Trend Job" max_length="40" name="x_ihgih_trend_scheduled_script" type="collection">
+        <element label="Definition" max_length="32" name="definition" reference="x_ihgih_trend_definitions" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
+        <index name="index">
+            <element name="definition"/>
+        </index>
+    </element>
+</database>

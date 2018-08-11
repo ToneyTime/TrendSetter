@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="x_ihgih_trend_scheduled_script">
+    <x_ihgih_trend_scheduled_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition/>
+        <conditional>false</conditional>
+        <definition display_value="ServiceNow License Usage">de47a326db3b534429c804c2ca9619af</definition>
+        <name>ServiceNow License Trend</name>
+        <run_as display_value="IHG System Administrator">6816f79cc0a8016401c5a33be04be441</run_as>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period/>
+        <run_start>2018-08-11 19:28:18</run_start>
+        <run_time>1970-01-01 10:00:00</run_time>
+        <run_type>daily</run_type>
+        <script><![CDATA[var def = new GlideRecord('x_ihgih_trend_definitions');
+def.addQuery('number','TDF0001003');
+def.query();
+
+while(def.next()){
+	var table = def.table;
+	var cond = def.condition;
+	
+	var q = new GlideRecord(table);
+	q.addEncodedQuery(cond);
+	q.query();
+		
+	var inst = new GlideRecord('x_ihgih_trend_instance');
+	inst.definition = def.sys_id;
+	inst.scheduled_by = '70952f22db3b534429c804c2ca9619a3';
+	inst.int_value = q.getRowCount();
+	inst.value = q.getRowCount();
+	inst.insert();
+	
+}]]></script>
+        <sys_class_name>x_ihgih_trend_scheduled_script</sys_class_name>
+        <sys_created_by>AMER\vecchit</sys_created_by>
+        <sys_created_on>2018-08-11 19:40:47</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>3b68eb66db3b534429c804c2ca9619e6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ServiceNow License Trend</sys_name>
+        <sys_package display_value="Trend Setter" source="x_ihgih_trend">f7d632aadbb3534429c804c2ca9619c3</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Trend Setter">f7d632aadbb3534429c804c2ca9619c3</sys_scope>
+        <sys_update_name>x_ihgih_trend_scheduled_script_3b68eb66db3b534429c804c2ca9619e6</sys_update_name>
+        <sys_updated_by>AMER\vecchit</sys_updated_by>
+        <sys_updated_on>2018-08-11 19:40:47</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </x_ihgih_trend_scheduled_script>
+</record_update>

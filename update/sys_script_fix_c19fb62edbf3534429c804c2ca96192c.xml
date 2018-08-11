@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <before>false</before>
+        <description/>
+        <flush_cache>false</flush_cache>
+        <name>Tester</name>
+        <run_once>true</run_once>
+        <script><![CDATA[gs.info('Starting');
+
+var def = new GlideRecord('x_ihgih_trend_definitions');
+def.addQuery('name','ServiceNow Active Incidents');
+def.query();
+
+gs.info('Processing Definition Count: ' + def.getRowCount());
+
+while(def.next()){
+	var table = def.table;
+	var cond = def.condition;
+	
+	var q = new GlideRecord(table);
+	q.addEncodedQuery(cond);
+	q.query();
+		
+	var inst = new GlideRecord('x_ihgih_trend_instance');
+	inst.definition = def.sys_id;
+	inst.int_value = q.getRowCount();
+	inst.value = q.getRowCount();
+	inst.insert();
+	
+}]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>AMER\vecchit</sys_created_by>
+        <sys_created_on>2018-08-11 16:43:31</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>c19fb62edbf3534429c804c2ca96192c</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Tester</sys_name>
+        <sys_package display_value="Trend Setter" source="x_ihgih_trend">f7d632aadbb3534429c804c2ca9619c3</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Trend Setter">f7d632aadbb3534429c804c2ca9619c3</sys_scope>
+        <sys_update_name>sys_script_fix_c19fb62edbf3534429c804c2ca96192c</sys_update_name>
+        <sys_updated_by>AMER\vecchit</sys_updated_by>
+        <sys_updated_on>2018-08-11 19:23:18</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>
